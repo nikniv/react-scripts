@@ -50,6 +50,7 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -493,6 +494,8 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    
+    new BundleAnalyzerPlugin(),
     // Inlines the webpack runtime script. This script is too small to warrant
     // a network request.
     shouldInlineRuntimeChunk &&
