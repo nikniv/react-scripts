@@ -50,7 +50,6 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -316,6 +315,7 @@ module.exports = {
           // The preset includes JSX, Flow, TypeScript and some ESnext features.
           {
             test: /\.(js|mjs|jsx|ts|tsx)$/,
+            exclude: /node_modules/,
             include: paths.appSrc,
 
             loader: require.resolve('babel-loader'),
@@ -326,7 +326,7 @@ module.exports = {
               // @remove-on-eject-begin
               babelrc: false,
               configFile: false,
-              presets: [require.resolve('babel-preset-react-app')],
+              presets: [[require.resolve('babel-preset-react-app'), { modules: false }]],
               // Make sure we have a unique cache identifier, erring on the
               // side of caution.
               // We remove this when the user ejects because the default
@@ -356,6 +356,7 @@ module.exports = {
               cacheCompression: true,
               compact: true,
             },
+            sideEffects: false,
           },
           // Process any JS outside of the app with Babel.
           // Unlike the application JS, we only compile the standard ES features.
@@ -370,7 +371,7 @@ module.exports = {
               presets: [
                 [
                   require.resolve('babel-preset-react-app/dependencies'),
-                  { helpers: true },
+                  { helpers: true }
                 ],
               ],
               cacheDirectory: true,
@@ -390,6 +391,7 @@ module.exports = {
               // being evaluated would be much more helpful.
               sourceMaps: false,
             },
+            sideEffects: false,
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -494,8 +496,6 @@ module.exports = {
         minifyURLs: true,
       },
     }),
-    
-    new BundleAnalyzerPlugin(),
     // Inlines the webpack runtime script. This script is too small to warrant
     // a network request.
     shouldInlineRuntimeChunk &&
