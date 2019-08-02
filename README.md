@@ -159,6 +159,18 @@ This library follows the same versioning as facebook's `react-scripts` package.
 
 At the time of writing this, `react-scripts` version was [2.1.1](https://github.com/facebook/create-react-app/tree/v2.1.1/packages/react-scripts), which is the original source used.
 
+##### Tree Shaking feature enabled
+
+Add the following object to `config/webpack.config.prod.js`:
+
+```
+exclude: /node_modules/,
+presets: [[require.resolve('babel-preset-react-app'), { modules: false }]],
+sideEffects: false,
+```
+
+A "side effect" is defined as code that performs a special behavior when imported, other than exposing one or more exports.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
