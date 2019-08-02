@@ -89,6 +89,18 @@ oneOf: [
 
 Keeping this loader at the top means that if an image file matches its test, it will be converted to base64 string as intented. The remaining loaders will not be checked, so `url-loader` will not be used for the matching file.
 
+##### Tree Shaking feature enabled
+
+Add the following object to `config/webpack.config.prod.js`:
+
+```
+exclude: /node_modules/,
+presets: [[require.resolve('babel-preset-react-app'), { modules: false }]],
+sideEffects: false,
+```
+
+A "side effect" is defined as code that performs a special behavior when imported, other than exposing one or more exports.
+
 #### `scripts/start.js`
 
 ##### Disable typescript checking
@@ -158,18 +170,6 @@ Please refer to its documentation:
 This library follows the same versioning as facebook's `react-scripts` package.
 
 At the time of writing this, `react-scripts` version was [2.1.1](https://github.com/facebook/create-react-app/tree/v2.1.1/packages/react-scripts), which is the original source used.
-
-##### Tree Shaking feature enabled
-
-Add the following object to `config/webpack.config.prod.js`:
-
-```
-exclude: /node_modules/,
-presets: [[require.resolve('babel-preset-react-app'), { modules: false }]],
-sideEffects: false,
-```
-
-A "side effect" is defined as code that performs a special behavior when imported, other than exposing one or more exports.
 
 ## License
 
