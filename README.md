@@ -1,6 +1,6 @@
 # react-scripts
 
-Customized [`react-scripts`](https://github.com/facebook/create-react-app/tree/master/packages/react-scripts) for Nuage Networks VSD UI Framework
+Customized [`react-scripts`](https://github.com/facebook/create-react-app/tree/master/packages/react-scripts) package.
 
 ## Getting Started
 
